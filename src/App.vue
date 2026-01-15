@@ -31,23 +31,27 @@ const handleInputChange = (event: Event) => {
 </script>
 
 <template>
-  <main class="min-h-screen bg-stone-50 p-8">
-    <div class="mx-auto max-w-md">
-      <Card>
+  <main class="min-h-screen bg-background px-6 py-12 sm:px-8">
+    <div class="mx-auto max-w-2xl">
+      <Card class="border-border/80 bg-card shadow-sm">
         <CardHeader>
-          <CardTitle>{{ focacciaRecipe.name }}</CardTitle>
-          <CardDescription>{{ focacciaRecipe.description }}</CardDescription>
+          <CardTitle class="text-2xl">{{ focacciaRecipe.name }}</CardTitle>
+          <CardDescription class="text-base">
+            {{ focacciaRecipe.description }}
+          </CardDescription>
         </CardHeader>
-        <CardContent class="space-y-6">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <Label for="weight">Total Dough Weight</Label>
+        <CardContent class="space-y-8">
+          <section class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <Label for="weight" class="text-sm font-medium">
+                Total Dough Weight
+              </Label>
               <div class="flex items-center gap-2">
                 <Input
                   id="weight"
                   type="number"
                   :value="totalWeight"
-                  class="w-20 text-right"
+                  class="w-24 text-right"
                   :min="100"
                   :max="2000"
                   @input="handleInputChange"
@@ -55,33 +59,47 @@ const handleInputChange = (event: Event) => {
                 <span class="text-sm text-muted-foreground">g</span>
               </div>
             </div>
-            <Slider
-              :model-value="[totalWeight]"
-              :min="100"
-              :max="2000"
-              :step="10"
-              @update:model-value="handleSliderChange"
-            />
-          </div>
+            <div class="rounded-lg border border-border bg-secondary/60 p-4">
+              <Slider
+                :model-value="[totalWeight]"
+                :min="100"
+                :max="2000"
+                :step="10"
+                @update:model-value="handleSliderChange"
+              />
+              <div
+                class="mt-3 flex items-center justify-between text-xs text-muted-foreground"
+              >
+                <span>100g</span>
+                <span>2000g</span>
+              </div>
+            </div>
+          </section>
 
-          <div class="space-y-2">
-            <h3 class="font-medium">Ingredients</h3>
-            <ul class="space-y-1">
+          <section class="space-y-3">
+            <h3
+              class="text-sm font-semibold uppercase tracking-wide text-muted-foreground"
+            >
+              Ingredients
+            </h3>
+            <ul class="divide-y divide-border text-sm">
               <li
                 v-for="ingredient in calculatedIngredients"
                 :key="ingredient.name"
-                class="flex justify-between text-sm"
+                class="grid grid-cols-[1fr_auto] items-center gap-4 py-2"
               >
-                <span>{{ ingredient.name }}</span>
-                <span class="tabular-nums">
-                  {{ ingredient.amount }}{{ ingredient.unit }}
-                  <span class="text-muted-foreground"
-                    >({{ ingredient.percentage }}%)</span
-                  >
+                <span class="font-medium">{{ ingredient.name }}</span>
+                <span class="flex items-baseline gap-2 tabular-nums">
+                  <span class="font-semibold">
+                    {{ ingredient.amount }}{{ ingredient.unit }}
+                  </span>
+                  <span class="text-xs font-semibold text-foreground/70">
+                    {{ ingredient.percentage }}%
+                  </span>
                 </span>
               </li>
             </ul>
-          </div>
+          </section>
         </CardContent>
       </Card>
     </div>
