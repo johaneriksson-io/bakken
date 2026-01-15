@@ -33,6 +33,13 @@ const handleInputChange = (event: Event) => {
 <template>
   <main class="min-h-screen bg-background px-6 py-12 sm:px-8">
     <div class="mx-auto max-w-2xl">
+      <div class="mb-6 flex items-center justify-center">
+        <img
+          src="@/assets/culinarial_hat_logo_vector_tight.svg"
+          alt="Culinarial hat logo"
+          class="h-16 w-auto"
+        />
+      </div>
       <Card class="border-border/80 bg-card shadow-sm">
         <CardHeader>
           <CardTitle class="text-2xl">{{ focacciaRecipe.name }}</CardTitle>
