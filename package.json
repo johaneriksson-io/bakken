@@ -58,5 +58,10 @@
     "*.{css,json}": [
       "prettier --write"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "diff": "^8.0.3"
+    }
   }
 }
