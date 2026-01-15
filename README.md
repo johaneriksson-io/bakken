@@ -1,5 +1,32 @@
-# Vue 3 + TypeScript + Vite
+# Bakken
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A parametric bread recipe app that scales ingredients based on total dough weight using baker's percentages.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Features
+
+- Focaccia recipe with adjustable total dough weight (100-2000g)
+- Ingredients scale proportionally using baker's percentages
+- Clean UI with shadcn-vue components
+
+## Tech Stack
+
+Vue 3, TypeScript, Vite, Tailwind CSS, shadcn-vue
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Scripts
+
+- `pnpm dev` - Start dev server
+- `pnpm build` - Build for production
+- `pnpm test` - Run tests
+- `pnpm lint` - Run ESLint
+- `pnpm run deploy` - Deploy to Firebase Hosting
+
+## Live
+
+https://bakken-4711.web.app
