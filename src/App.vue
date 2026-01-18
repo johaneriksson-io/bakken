@@ -54,7 +54,7 @@ const handleInputChange = (event: Event) => {
 </script>
 
 <template>
-  <main class="min-h-screen bg-background px-6 py-12 sm:px-8">
+  <main class="min-h-screen bg-background px-4 py-8 sm:px-6 sm:py-12">
     <div class="mx-auto max-w-2xl">
       <div class="mb-6 flex items-center justify-center">
         <img
@@ -72,8 +72,8 @@ const handleInputChange = (event: Event) => {
         </CardHeader>
         <CardContent class="space-y-8">
           <section class="space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <Label for="weight" class="text-sm font-medium">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <Label for="weight" class="text-base font-medium sm:text-sm">
                 Total Dough Weight
               </Label>
               <div class="flex items-center gap-2">
@@ -81,31 +81,37 @@ const handleInputChange = (event: Event) => {
                   id="weight"
                   type="number"
                   :value="totalWeight"
-                  class="w-24 text-right"
+                  class="w-28 text-right text-lg sm:w-24 sm:text-base"
                   :min="100"
                   :max="2000"
                   @input="handleInputChange"
                 />
-                <span class="text-sm text-muted-foreground">g</span>
+                <span class="text-base text-muted-foreground sm:text-sm"
+                  >g</span
+                >
               </div>
             </div>
-            <div class="rounded-lg border border-border bg-secondary/60 p-4">
+            <div
+              class="rounded-lg border border-border bg-secondary/60 p-4 sm:p-4"
+            >
               <div class="mb-4 flex items-center justify-center">
                 <span
-                  class="text-3xl font-bold tabular-nums text-primary transition-all duration-200"
+                  class="text-4xl font-bold tabular-nums text-primary transition-all duration-200 sm:text-3xl"
                 >
                   {{ totalWeight }}g
                 </span>
               </div>
-              <Slider
-                :model-value="[totalWeight]"
-                :min="100"
-                :max="2000"
-                :step="10"
-                @update:model-value="handleSliderChange"
-              />
+              <div class="px-2 py-3 sm:px-0 sm:py-0">
+                <Slider
+                  :model-value="[totalWeight]"
+                  :min="100"
+                  :max="2000"
+                  :step="10"
+                  @update:model-value="handleSliderChange"
+                />
+              </div>
               <div
-                class="mt-3 flex items-center justify-between text-xs text-muted-foreground"
+                class="mt-3 flex items-center justify-between text-sm text-muted-foreground sm:text-xs"
               >
                 <span>100g</span>
                 <span>2000g</span>
@@ -113,17 +119,17 @@ const handleInputChange = (event: Event) => {
             </div>
           </section>
 
-          <section class="space-y-3">
+          <section class="space-y-4">
             <h3
-              class="text-sm font-semibold uppercase tracking-wide text-muted-foreground"
+              class="text-sm font-semibold uppercase tracking-wide text-muted-foreground sm:text-sm"
             >
               Ingredients
             </h3>
-            <ul class="divide-y divide-border text-sm">
+            <ul class="divide-y divide-border text-base sm:text-base">
               <li
                 v-for="ingredient in calculatedIngredients"
                 :key="ingredient.name"
-                class="grid grid-cols-[1fr_auto] items-center gap-4 py-2 transition-colors duration-200"
+                class="grid grid-cols-[1fr_auto] items-center gap-4 py-3 transition-colors duration-200 sm:py-2"
                 :class="{
                   'bg-primary/10': highlightedIngredients.has(ingredient.name),
                 }"
@@ -131,7 +137,7 @@ const handleInputChange = (event: Event) => {
                 <span class="font-medium">{{ ingredient.name }}</span>
                 <span class="flex items-baseline gap-2 tabular-nums">
                   <span
-                    class="font-semibold transition-all duration-200"
+                    class="text-lg font-semibold transition-all duration-200 sm:text-base"
                     :class="{
                       'scale-105 text-primary': highlightedIngredients.has(
                         ingredient.name
@@ -140,7 +146,9 @@ const handleInputChange = (event: Event) => {
                   >
                     {{ ingredient.amount }}{{ ingredient.unit }}
                   </span>
-                  <span class="text-xs font-semibold text-foreground/70">
+                  <span
+                    class="text-sm font-semibold text-foreground/70 sm:text-xs"
+                  >
                     {{ ingredient.percentage }}%
                   </span>
                 </span>
