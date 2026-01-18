@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import {
   Card,
   CardContent,
@@ -14,6 +15,28 @@ import { useRecipeCalculator } from '@/composables/useRecipeCalculator'
 
 const { totalWeight, calculatedIngredients } =
   useRecipeCalculator(focacciaRecipe)
+
+// Track which ingredients are currently highlighted
+const highlightedIngredients = ref<Set<string>>(new Set())
+
+// Watch for changes in calculated ingredients and trigger highlight
+watch(
+  calculatedIngredients,
+  (newIngredients, oldIngredients) => {
+    if (!oldIngredients) return
+
+    newIngredients.forEach((newIng, index) => {
+      const oldIng = oldIngredients[index]
+      if (oldIng && newIng.amount !== oldIng.amount) {
+        highlightedIngredients.value.add(newIng.name)
+        setTimeout(() => {
+          highlightedIngredients.value.delete(newIng.name)
+        }, 300)
+      }
+    })
+  },
+  { deep: true }
+)
 
 const handleSliderChange = (value: number[] | undefined) => {
   if (value?.[0] !== undefined) {
@@ -67,6 +90,13 @@ const handleInputChange = (event: Event) => {
               </div>
             </div>
             <div class="rounded-lg border border-border bg-secondary/60 p-4">
+              <div class="mb-4 flex items-center justify-center">
+                <span
+                  class="text-3xl font-bold tabular-nums text-primary transition-all duration-200"
+                >
+                  {{ totalWeight }}g
+                </span>
+              </div>
               <Slider
                 :model-value="[totalWeight]"
                 :min="100"
@@ -93,11 +123,21 @@ const handleInputChange = (event: Event) => {
               <li
                 v-for="ingredient in calculatedIngredients"
                 :key="ingredient.name"
-                class="grid grid-cols-[1fr_auto] items-center gap-4 py-2"
+                class="grid grid-cols-[1fr_auto] items-center gap-4 py-2 transition-colors duration-200"
+                :class="{
+                  'bg-primary/10': highlightedIngredients.has(ingredient.name),
+                }"
               >
                 <span class="font-medium">{{ ingredient.name }}</span>
                 <span class="flex items-baseline gap-2 tabular-nums">
-                  <span class="font-semibold">
+                  <span
+                    class="font-semibold transition-all duration-200"
+                    :class="{
+                      'scale-105 text-primary': highlightedIngredients.has(
+                        ingredient.name
+                      ),
+                    }"
+                  >
                     {{ ingredient.amount }}{{ ingredient.unit }}
                   </span>
                   <span class="text-xs font-semibold text-foreground/70">
